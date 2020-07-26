@@ -17,8 +17,7 @@ namespace UnityEditor.U2D.Path
 
         private Editor m_CachedEditor = null;
 
-        // Returns true on Changed.
-        protected bool DoEditButton<U>(GUIContent icon, string label) where U : PathEditorTool<T>
+        protected void DoEditButton<U>(GUIContent icon, string label) where U : PathEditorTool<T>
         {
             const float kButtonWidth = 33;
             const float kButtonHeight = 23;
@@ -37,7 +36,6 @@ namespace UnityEditor.U2D.Path
                 labelSize.x,
                 rect.height);
 
-            bool hasChanged = false;
             using (new EditorGUI.DisabledGroupScope(!EditorToolManager.IsAvailable<U>()))
             {
                 using (var check = new EditorGUI.ChangeCheckScope())
@@ -52,11 +50,9 @@ namespace UnityEditor.U2D.Path
                             EditorTools.EditorTools.SetActiveTool<U>();
                         else
                             EditorTools.EditorTools.RestorePreviousTool();
-                        hasChanged = true;
                     }
                 }
             }
-            return hasChanged;
         }
 
         protected void DoPathInspector<U>() where U : PathEditorTool<T>
